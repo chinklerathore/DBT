@@ -1,0 +1,68 @@
+version: 2
+
+sources:
+  - name: Assign  
+    database: DBT
+    schema: DbtAssign
+    tables:
+      - name: CUSTOMERS
+        description: "Contains customer data"
+        
+        columns:
+          - name: CUSTOMER_ID
+            description: Primary key of the customer table
+            tests:
+              - unique
+              - not_null
+      - name: ORDERS
+        description: "Contains orders data"
+        
+        columns:
+          - name: ORDER_ID
+            description: Primary key of the order table
+            tests:
+              - unique
+              - not_null
+          #- name: TOTAL_AMOUNT
+           # tests:
+            #  - is_positive   
+          - name: order_status
+            tests:
+            - accepted_values:
+                values: ['pending', 'canceled', 'completed']
+          - name: CUSTOMER_ID
+            tests:
+            - not_null  
+            - relationships:
+               to: ref('CUSTOMERS')
+               field: CUSTOMER_ID
+
+      - name: ORDER_ITEMS
+        description: "Contains order item details"
+        columns:
+          - name: ORDER_ITEM_ID
+            description: Primary key of the order table
+            tests:
+              - unique
+              - not_null
+          - name: ORDER_ID
+            tests:
+            - not_null  
+            - relationships:
+               to: ref('ORDERS')
+               field: ORDER_ID
+          - name: product_id
+            tests:
+             - not_null
+             - relationships:
+                to: ref('PRODUCTS')
+                field: product_id     
+              
+      - name: PRODUCTS
+        description: "Contains product data"
+        columns:
+          - name: PRODUCT_ID
+            description: Primary key of the products table
+            tests:
+              - unique
+              - not_null

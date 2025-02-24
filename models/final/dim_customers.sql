@@ -1,0 +1,1 @@
+ select cust_id, customer_full_name, email, created_at from {{ref('int_orders')}}

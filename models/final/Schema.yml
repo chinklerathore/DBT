@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: fct_order_revenue
+    columns:
+      - name: total_revenue
+        tests:
+          - is_positive
+      - name: order_id
+        tests:
+          - unique
+          - not_null     
+  - name: dim_customers
+    columns:
+      - name: cust_id
+        tests:
+          - unique
+          - not_null 
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null           

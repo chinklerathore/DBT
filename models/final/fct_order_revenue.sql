@@ -1,0 +1,1 @@
+Select orders.order_id, orderRevenue.total_revenue,  orders.order_status from {{ref('int_orders')}}  orders  left join {{ref('int_order_revenue')}}  orderRevenue on orderRevenue.order_id=orders.order_id
